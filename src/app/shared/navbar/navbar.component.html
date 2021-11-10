@@ -1,0 +1,87 @@
+<div class="navbar--container">
+  <div class="navbar-left text-color-white">
+    <div class="navbar-left-brand" (click)="navigateTo(navigationPathEnum.SEASONS_URL)">
+      <img src="https://img.uefa.com/imgml/uefacom/ucl/logo.svg" class="navbar-left-logo" alt="">
+      <span class="navbar-left-title text-color-white">Champions League</span>
+    </div>
+    <mat-form-field appearance="fill" class="navbar-left-select-season">
+      <mat-label class="text-color-white">Saison auswählen</mat-label>
+      <mat-select [(value)]="selectedSeasonId">
+        <mat-option *ngFor="let season of seasons" [value]="season.seasonId">
+          {{season.season}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="navbar-right">
+    <button mat-button class="navbar-button">
+      <span class="material-icons moon-icon">nightlight_round</span>
+    </button>
+    <button mat-button class="navbar-button" (click)="navigateTo(navigationPathEnum.SEASONS_URL)">
+      <span class="material-icons">home</span>
+      <span class="button-title">Home</span>
+    </button>
+    <button mat-button class="navbar-button" (click)="navigateTo(navigationPathEnum.GROUPS_URL)">
+      <span class="material-icons">table_chart</span>
+      <span class="button-title">Gruppentabelle</span>
+    </button>
+    <button mat-button class="navbar-button" (click)="navigateTo(navigationPathEnum.MATCHES_URL)">
+      <span class="material-icons">sports_soccer</span>
+      <span class="button-title">Gruppenspiele</span>
+    </button>
+    <button mat-button class="navbar-button" (click)="navigateTo(navigationPathEnum.CONFIG_URL)">
+      <span class="material-icons">settings</span>
+      Config
+    </button>
+    <button mat-button class="navbar-button" (click)="navigateTo(navigationPathEnum.ABOUT_URL)">
+      <span class="material-icons">info</span>
+      Über
+    </button>
+  </div>
+</div>
+<mat-accordion>
+  <mat-expansion-panel hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <div class="navbar-left-brand" (click)="navigateTo(navigationPathEnum.SEASONS_URL)">
+          <img src="https://img.uefa.com/imgml/uefacom/ucl/logo.svg" class="navbar-left-logo" alt="">
+          <span class="navbar-left-title text-color-white">Champions League</span>
+        </div>
+        <span class="material-icons text-color-white  ">menu</span>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="navbar-right">
+      <mat-form-field appearance="fill" class="navbar-left-select-season">
+        <mat-label class="text-color-white">Saison auswählen</mat-label>
+        <mat-select [(value)]="selectedSeasonId">
+          <mat-option *ngFor="let season of seasons" [value]="season.seasonId">
+            {{season.season}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button mat-button class="navbar-button" (click)="navigateTo(navigationPathEnum.SEASONS_URL)">
+        <span class="material-icons">home</span>
+        <span class="button-title">Home</span>
+      </button>
+      <button mat-button class="navbar-button" (click)="navigateTo(navigationPathEnum.GROUPS_URL)">
+        <span class="material-icons">table_chart</span>
+        <span class="button-title">Gruppentabelle</span>
+      </button>
+      <button mat-button class="navbar-button" (click)="navigateTo(navigationPathEnum.MATCHES_URL)">
+        <span class="material-icons">sports_soccer</span>
+        <span class="button-title">Gruppenspiele</span>
+      </button>
+      <button mat-button class="navbar-button">
+        <span class="material-icons moon-icon">nightlight_round</span>
+      </button>
+      <button mat-button class="navbar-button" (click)="navigateTo(navigationPathEnum.CONFIG_URL)">
+        <span class="material-icons">settings</span>
+        Config
+      </button>
+      <button mat-button class="navbar-button" (click)="navigateTo(navigationPathEnum.ABOUT_URL)">
+        <span class="material-icons">info</span>
+        Über
+      </button>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>

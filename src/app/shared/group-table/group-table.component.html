@@ -1,0 +1,23 @@
+<div class="group-table-item">
+  <h1 class="groups-group-table-header">Gruppe: {{groupName}}</h1>
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort matSortActive="points" matSortDirection="desc">
+    <ng-container *ngFor="let displayedColumn of displayedColumns; let i = index">
+      <ng-container matColumnDef="{{displayedColumn}}">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{displayedColumnsText[i]}}</th>
+        <td mat-cell *matCellDef="let club">
+          <div class="table-club-avatar" *ngIf="displayedColumn == 'clubLogo'">
+            <img src="{{club.clubLogo}}" alt="" class="club-avatar-small">
+          </div>
+          <div class="table-row-club-name" *ngIf="displayedColumn == 'clubName'">
+            {{club.clubName}}
+          </div>
+          <div class="table-row-data" *ngIf="displayedColumn != 'clubLogo' && displayedColumn != 'clubName'">
+            {{club[displayedColumn]}}
+          </div>
+        </td>
+      </ng-container>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>

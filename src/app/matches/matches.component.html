@@ -1,0 +1,21 @@
+<div class="group-round--container">
+  <h1 class="runde-title">Runde: </h1>
+  <div class="select-round-combobox">
+    <mat-form-field appearance="fill">
+      <mat-label>Runde auswählen</mat-label>
+      <mat-select>
+        <mat-option *ngFor="let round of rounds" [value]="round" (click)="getRoundMatches(round.roundId)">
+          <div>
+            {{round.stage}} <span *ngIf="round.roundId < 13">Runde {{round.round}} {{round.homeAway | titlecase}}</span>
+          </div>
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>
+<div class="matches" *ngIf="roundMatches">
+  <div class="matches--container" *ngFor="let match of roundMatches">
+    <app-match [match]="match" [seasonDetails]="seasonDetails" [inputNotActive]="inputNotActive" (updatedMatchEmitter)="updateMatchScore($event)"></app-match>
+    <mat-divider></mat-divider>
+  </div>
+</div>

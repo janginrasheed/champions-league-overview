@@ -1,0 +1,37 @@
+.group-table-item {
+  margin: 2rem;
+}
+
+table {
+  border-top: 2rem var(--champions-league-color) solid;
+  width: 40rem;
+}
+
+th.mat-sort-header-sorted {
+  color: black;
+}
+
+.groups-group-table-header {
+  color: #fff;
+  margin: 0 0 -2rem 2rem;
+  font-size: 1rem;
+}
+
+.club-data {
+  display: flex;
+  align-items: center;
+}
+
+.table-club-avatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.table-row-data {
+  width: 3rem;
+}
+
+.table-row-club-name {
+  width: 10rem;
+}

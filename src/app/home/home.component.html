@@ -1,0 +1,52 @@
+<div class="home-club-info-button">
+  <button mat-raised-button [matMenuTriggerFor]="menu" color="primary">Verein auswählen
+    <span class="material-icons">keyboard_arrow_down</span>
+  </button>
+  <mat-menu #menu="matMenu">
+    <ng-container *ngIf="seasonDetails">
+      <ng-container *ngFor="let group of seasonDetails[0].seasonGroups">
+        <button mat-menu-item *ngFor="let club of group.groupClubs"
+                (click)="clubSelected(club, group)"
+                class="club-avatar-name">
+          <span class="home-button-avatar">
+          <img src="{{club.clubLogo}}" class="club-avatar-small" alt="Club Logo">
+          </span>
+          {{club.clubName}}
+        </button>
+      </ng-container>
+    </ng-container>
+  </mat-menu>
+</div>
+<div class="club-info" *ngIf="selectedClubGroup">
+  <h1 class="home-club-info-name">{{selectedClub?.clubName}}</h1>
+  <div class="club-logo-table">
+    <img src="{{selectedClub?.clubLogo}}" class="club-avatar-large" alt="Club Logo">
+    <div>
+      <div class="matches-container" *ngFor="let match of clubMatches">
+        <app-match [match]="match" [seasonDetails]="seasonDetails[0]" [inputNotActive]="inputNotActive"
+                   (updatedMatchEmitter)="updateMatchScore($event)"></app-match>
+      </div>
+    </div>
+    <app-group-table [groupName]="selectedClubGroup.groupName" [clubsData]="clubsData"></app-group-table>
+  </div>
+</div>
+<!--TODO-->
+<!--
+<div class="home-statistics">
+  <h1>Statistics</h1>
+  <div class="home-statistics-tables">
+    <div class="statistics-most-goals-scored">
+      Most goals
+    </div>
+    <div class="statistics-most-goals-conceded">
+      Most goals conceded
+    </div>
+    <div class="statistics-most-clean-sheets">
+      Most clean sheets
+    </div>
+    <div class="statistics-most-goals-in-a-match">
+      Most goals scored in a match
+    </div>
+  </div>
+</div>
+-->
