@@ -18,7 +18,7 @@ export class NavbarComponent implements OnInit {
   seasons: Season[];
   isLoading = true;
   currentPage: String;
-  private _selectedSeasonId: number = 1;
+  private _selectedSeasonId: number;
 
   get selectedSeasonId(): number {
     return this._selectedSeasonId;
@@ -92,7 +92,7 @@ export class NavbarComponent implements OnInit {
     this.dataService.getSeasons().subscribe(data => {
       this.seasons = data;
       this.isLoading = false;
-      if (this.selectedSeasonId == null || this.selectedSeasonId > this.seasons.length || this.selectedSeasonId < this.seasons.length) {
+      if (this.selectedSeasonId == null || this.selectedSeasonId > this.seasons.length || this.selectedSeasonId < 1) {
         this.selectedSeasonId = this.checkCurrentSeason().seasonId;
       }
     });
@@ -105,6 +105,7 @@ export class NavbarComponent implements OnInit {
       if (route.snapshot.params.seasonid >= 1) {
         this.selectedSeasonId = +route.snapshot.params.seasonid;
       } else {
+        this.selectedSeasonId = 2;
         const navigationParameter: INavigationParameter = {
           ['seasonId']: {
             value: this.selectedSeasonId
@@ -147,11 +148,11 @@ export class NavbarComponent implements OnInit {
 
     (currentMonth + 1) < 9 ? currentSeason.season = (currentYear - 1) + "/" + currentYear : currentSeason.season = currentYear + "/" + (currentYear + 1);
 
-    this.seasons.forEach(season => {
-      if (season.season == currentSeason.season) {
-        currentSeason.seasonId = season.seasonId;
-      }
-    });
+      this.seasons.forEach(season => {
+        if (season.season == currentSeason.season) {
+          currentSeason.seasonId = season.seasonId;
+        }
+      });
 
     return currentSeason;
   }

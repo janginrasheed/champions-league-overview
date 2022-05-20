@@ -1,11 +1,12 @@
-<!--<span matBadge="{{matchDetails.group}}" matBadgeSize="large">-->
 <div class="match-details--container">
   <div class="group-date">
+    <div class="round">
+      {{matchDetails.round}}
+    </div>
     <div class="group">
       Gruppe: {{matchDetails.group}}
     </div>
     <div class="match-date match-info-text">
-      Datum:
       {{matchDetails.matchDate | date: "dd.MM.yyyy"}}
     </div>
   </div>
@@ -13,7 +14,7 @@
     {{matchDetails.homeClub.name}}
   </div>
   <div class="club-logo">
-    <img src="{{matchDetails.homeClub.logo}}" alt="" class="club-avatar-small">
+    <img src="{{matchDetails.homeClub.logo}}" alt="" class="club-logo-small">
   </div>
   <form class="example-form">
     <mat-form-field class="example-full-width">
@@ -36,7 +37,7 @@
     </mat-form-field>
   </form>
   <div class="club-logo">
-    <img src="{{matchDetails.awayClub.logo}}" alt="" class="club-avatar-small">
+    <img src="{{matchDetails.awayClub.logo}}" alt="" class="club-logo-small">
   </div>
   <div class="away-club-name">
     {{matchDetails.awayClub.name}}
@@ -48,4 +49,3 @@
             [disabled]="inputNotActive"><span class="material-icons">save</span></button>
   </div>
 </div>
-<!--</span>-->

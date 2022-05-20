@@ -17,19 +17,17 @@
 }
 
 .matches--container {
-  //border: solid var(--champions-league-color) 0.2rem;
-  margin-bottom: 1.5rem;
-  border-radius: 1rem;
-  width: 70rem;
+  margin-bottom: 1rem;
+  //border-radius: 1rem;
+  //width: 70rem;
 }
 
 ::ng-deep .select-round-combobox .mat-form-field-wrapper .mat-form-field-underline {
-  bottom: 0 !important;
+  //bottom: 0 !important;
 }
 
 ::ng-deep .mat-form-field-wrapper{
-  margin-bottom: 0;
-  padding: 0;
+  //margin-bottom: 0;
 }
 
 .runde-title {

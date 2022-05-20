@@ -4,7 +4,6 @@ import {NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {GroupTableComponent} from './shared/group-table/group-table.component';
-import {AvatarComponent} from './shared/avatar/avatar.component';
 import {NavbarComponent} from './shared/navbar/navbar.component';
 import {HomeComponent} from './home/home.component';
 import {GroupsComponent} from './groups/groups.component';
@@ -20,28 +19,28 @@ import {MatTableModule} from '@angular/material/table';
 import {MatSortModule} from '@angular/material/sort';
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {MatExpansionModule} from "@angular/material/expansion";
-import {ClubsComponent} from './clubs/clubs.component';
 import {MatInputModule} from "@angular/material/input";
-import { MatchComponent } from './shared/match/match.component';
+import {MatchComponent} from './shared/match/match.component';
 import {MatBadgeModule} from "@angular/material/badge";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {MatDividerModule} from "@angular/material/divider";
-import { ConfigComponent } from './config/config.component';
-import { AboutComponent } from './about/about.component';
+import {ConfigComponent} from './config/config.component';
+import {AboutComponent} from './about/about.component';
+import {NewnavbarComponent} from './shared/newnavbar/newnavbar.component';
+import {MatProgressBarModule} from "@angular/material/progress-bar";
 
 @NgModule({
   declarations: [
     AppComponent,
     GroupTableComponent,
-    AvatarComponent,
     NavbarComponent,
     HomeComponent,
     GroupsComponent,
     MatchesComponent,
-    ClubsComponent,
     MatchComponent,
     ConfigComponent,
-    AboutComponent
+    AboutComponent,
+    NewnavbarComponent
   ],
   imports: [
     BrowserModule,
@@ -56,6 +55,7 @@ import { AboutComponent } from './about/about.component';
     MatExpansionModule,
     MatInputModule,
     MatSnackBarModule,
+    MatProgressBarModule,
     HttpClientModule,
     MatBadgeModule,
     MatSlideToggleModule,

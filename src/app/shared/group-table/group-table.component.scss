@@ -1,5 +1,5 @@
 .group-table-item {
-  margin: 2rem;
+  margin: 1.5rem;
 }
 
 table {
@@ -29,9 +29,17 @@ th.mat-sort-header-sorted {
 }
 
 .table-row-data {
-  width: 3rem;
+  width: 2rem;
 }
 
 .table-row-club-name {
-  width: 10rem;
+  width: 8rem;
+}
+
+th.mat-header-cell:first-of-type, td.mat-cell:first-of-type, td.mat-footer-cell:first-of-type {
+  padding-left: 0.8rem !important;
+}
+
+th.mat-header-cell:last-of-type, td.mat-cell:last-of-type, td.mat-footer-cell:last-of-type {
+  padding-right: 0 !important;
 }

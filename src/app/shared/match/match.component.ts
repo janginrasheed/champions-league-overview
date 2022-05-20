@@ -71,6 +71,7 @@ export class MatchComponent implements OnInit {
 
     this.matchDetails.homeClub.goals = this.match.homeClubGoals;
     this.matchDetails.awayClub.goals = this.match.awayClubGoals;
+    // this.matchDetails.round = this.round;
     this.matchDetails.matchDate = this.match.date;
   }
 

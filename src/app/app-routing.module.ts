@@ -8,32 +8,27 @@ import {AboutComponent} from "./about/about.component";
 
 const routes: Routes = [
   {
-    path: 'seasons/:seasonid',
+    path: 'home/:selectedSeasonName',
     component: HomeComponent,
     pathMatch: 'full'
   },
   {
-    path: 'seasons/:seasonid',
-    component: HomeComponent,
-    pathMatch: 'full'
-  },
-  {
-    path: 'seasons/:seasonid/groups',
+    path: 'groups/:selectedSeasonName',
     component: GroupsComponent,
     pathMatch: 'full'
   },
   {
-    path: 'seasons/:seasonid/matches',
+    path: 'matches/:selectedSeasonName',
     component: MatchesComponent,
     pathMatch: 'full'
   },
   {
-    path: 'seasons/:seasonid/config',
+    path: 'config',
     component: ConfigComponent,
     pathMatch: 'full'
   },
   {
-    path: 'seasons/:seasonid/about',
+    path: 'about',
     component: AboutComponent,
     pathMatch: 'full'
   },
@@ -51,11 +46,17 @@ export class AppRoutingModule {
 }
 
 /*
-localhost:4200/seasons/{seasonid}
-localhost:4200/seasons/{seasonid}/groups
-localhost:4200/seasons/{seasonid}/groups/{groupid}
-localhost:4200/seasons/{seasonid}/groups/{groupid}/clubs
-localhost:4200/seasons/{seasonid}/groups/{groupid}/clubs/{clubid}
-localhost:4200/seasons/{seasonid}/groups/{groupid}/matches
-localhost:4200/seasons/{seasonid}/groups/{groupid}/matches/{matchid}
+localhost:4200/home/{{selectedSeason}}
+localhost:4200/groups/{{selectedSeason}}
+localhost:4200/matches/{{selectedSeason}}
+localhost:4200/matches/{{selectedSeason}}/{{roundId}}
+localhost:4200/config
+localhost:4200/about
+
+localhost:4200/home/2020-2021
+localhost:4200/groups/2020-2021
+localhost:4200/matches/2020-2021
+localhost:4200/matches/2020-2021/1
+localhost:4200/config
+localhost:4200/about
 */

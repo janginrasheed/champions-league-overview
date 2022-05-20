@@ -2,33 +2,32 @@ import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {DataService} from '../services/data.service';
 import {SeasonDetails} from '../types/season-details';
 import {ActivatedRoute, Router} from "@angular/router";
-import {ComponentBase} from "../shared/base/component-base";
 import {Match} from "../types/match";
 import {ClubTable} from "../types/club-table";
+import {ParamsService} from "../services/params.service";
 
 @Component({
   selector: 'app-groups',
   templateUrl: './groups.component.html',
   styleUrls: ['./groups.component.scss']
 })
-export class GroupsComponent extends ComponentBase implements OnInit {
+export class GroupsComponent implements OnInit {
 
   public isLoading = true;
   private _errorText: string = '';
-  private _selectedSeasonId: number;
   matches: Match[];
   clubsGroupsData: ClubTable[][] = [[], [], [], [], [], [], [], []];
   groupName: string[] = [];
-
-  get selectedSeasonId(): number {
-    return this._selectedSeasonId;
-  }
-
-  set selectedSeasonId(value: number) {
-    this._selectedSeasonId = value;
-  }
-
+  private _selectedSeasonName: String;
   private _seasonDetails: SeasonDetails;
+
+  get selectedSeasonName(): String {
+    return this._selectedSeasonName;
+  }
+
+  set selectedSeasonName(value: String) {
+    this._selectedSeasonName = value;
+  }
 
   get seasonDetails(): SeasonDetails {
     return this._seasonDetails;
@@ -49,29 +48,29 @@ export class GroupsComponent extends ComponentBase implements OnInit {
   constructor(private dataService: DataService,
               private changeDetectorRef: ChangeDetectorRef,
               private activatedRoute: ActivatedRoute,
+              private paramsService: ParamsService,
               public router: Router) {
-    super(router);
   }
 
   ngOnInit(): void {
     this.seasonDetails = null;
-    this._selectedSeasonId = this.activatedRoute.snapshot.params.seasonid;
-    this.dataService.getSeasonDetails(this._selectedSeasonId).subscribe(data => {
+    this.paramsService.selectedSeasonName = this.activatedRoute.snapshot.params.selectedSeasonName;
+    this.selectedSeasonName = this.paramsService.selectedSeasonName;
+
+    this.dataService.getSeasonDetails(this.selectedSeasonName).subscribe(data => {
       this._seasonDetails = data[0];
       this.isLoading = false;
       this.fillClubsData();
-      console.log(this.clubsGroupsData);
+      // console.log(this.clubsGroupsData);
     }, error => {
       this.errorText = "Fehler beim Laden";
       this.isLoading = false;
       this.changeDetectorRef.detectChanges();
     });
 
-    this.dataService.getSeasonMatches(this.selectedSeasonId).subscribe(data => {
+    this.dataService.getSeasonMatches(this.selectedSeasonName).subscribe(data => {
       this.matches = data;
     });
-    super.ngOnInit();
-    // this.init()
 
     //Array initialisieren
     for (let i = 0; i < 8; i++) {
@@ -113,7 +112,10 @@ export class GroupsComponent extends ComponentBase implements OnInit {
               clubTable.goalDifference = 0;
               clubTable.points = 0;
               this.matches.forEach(match => {
-                if (clubTable.clubId == match.homeClubId && match.homeClubGoals != null) {
+                if (clubTable.clubId == match.homeClubId
+                  && match.homeClubGoals != ""
+                  && match.homeClubGoals != null
+                ) {
                   clubTable.played += 1;
                   clubTable.goalsFor += +match.homeClubGoals;
                   clubTable.goalsAgainst += +match.awayClubGoals;
@@ -126,7 +128,10 @@ export class GroupsComponent extends ComponentBase implements OnInit {
                   } else if (match.homeClubGoals < match.awayClubGoals) {
                     clubTable.lost += 1;
                   }
-                } else if (clubTable.clubId == match.awayClubId && match.homeClubGoals != null) {
+                } else if (clubTable.clubId == match.awayClubId
+                  && match.homeClubGoals != ""
+                  && match.homeClubGoals != null
+                ) {
                   clubTable.played += 1;
                   clubTable.goalsFor += +match.awayClubGoals;
                   clubTable.goalsAgainst += +match.homeClubGoals;
@@ -157,10 +162,6 @@ export class GroupsComponent extends ComponentBase implements OnInit {
         }
       });
     }
-  }
-
-  public init() {
-
   }
 
 }

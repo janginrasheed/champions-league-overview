@@ -1,82 +1,44 @@
-.home-container {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.matches-rounds-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 60%;
-}
-
-.round-container {
+.select-season {
   display: flex;
   justify-content: center;
-  align-items: center;
+  margin-top: 1rem;
+}
+
+.select-club {
   margin: 1rem;
 }
 
-.round-title {
-  margin: 0;
-}
-.select-round-combobox {
-  margin-left: 1rem;
+.select-club-button {
+  padding: 0.2rem 0;
+  width: 15rem;
 }
 
-.matches-container {
-  //border: solid var(--champions-league-color) 0.2rem;
-  margin-bottom: 1.5rem;
-  border-radius: 1rem;
-  width: 50rem;
-}
-
-::ng-deep .select-round-combobox .mat-form-field-wrapper .mat-form-field-underline {
-  bottom: 0 !important;
-}
-
-::ng-deep .mat-form-field-wrapper{
-  margin-bottom: 0;
-  padding: 0;
-}
-/*********************/
-.groups-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  width: 30%;
-}
-
-.home-club-info-button {
-  margin: 1rem;
-}
-
-.club-avatar-name {
+.club-logo-name {
   display: flex;
   align-items: center;
   justify-content: flex-start;
 }
 
-.home-button-avatar {
+.club-logo-container {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 3rem;
 }
 
-.club-info {
+.club-info-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   flex-wrap: wrap;
 }
 
-.home-club-info-name {
+.club-info-name {
   font-family: 'Comfortaa', cursive;
   font-size: 3rem;
 }
 
-.club-logo-table {
+.club-logo-table-container {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
@@ -84,17 +46,61 @@
   width: 100%;
 }
 
-.club-avatar-large {
+.club-logo-large {
   height: 13rem;
 }
 
-.home-statistics {
+.club-matches-container {
+  margin-bottom: 1rem;
+}
+
+// **** Matches - Groups Container ******************** //
+.matches-groups-container {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+// **** Matches Component ***************************** //
+.group-round--container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem;
+}
+
+.select-round-combobox {
+  margin-left: 1rem;
+}
+
+.matches {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
 }
 
-.home-statistics-tables {
+.matches--container {
+  margin-bottom: 1rem;
+  //border-radius: 1rem;
+  //width: 70rem;
+}
+
+::ng-deep .select-round-combobox .mat-form-field-wrapper .mat-form-field-underline {
+  //bottom: 0 !important;
+}
+
+::ng-deep .mat-form-field-wrapper {
+  //margin-bottom: 0;
+}
+
+.runde-title {
+  margin: 0;
+}
+
+//* Groups Component *****************************//
+.groups--container {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }

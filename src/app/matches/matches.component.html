@@ -3,10 +3,10 @@
   <div class="select-round-combobox">
     <mat-form-field appearance="fill">
       <mat-label>Runde auswählen</mat-label>
-      <mat-select>
-        <mat-option *ngFor="let round of rounds" [value]="round" (click)="getRoundMatches(round.roundId)">
+      <mat-select [(value)]="currentRoundId">
+        <mat-option *ngFor="let round of rounds" [value]="round.roundId">
           <div>
-            {{round.stage}} <span *ngIf="round.roundId < 13">Runde {{round.round}} {{round.homeAway | titlecase}}</span>
+            {{round.stage}} <span *ngIf="round.roundId < 7">{{round.round}}. Spieltag</span>{{round.homeAway | titlecase}}
           </div>
         </mat-option>
       </mat-select>
@@ -15,7 +15,7 @@
 </div>
 <div class="matches" *ngIf="roundMatches">
   <div class="matches--container" *ngFor="let match of roundMatches">
-    <app-match [match]="match" [seasonDetails]="seasonDetails" [inputNotActive]="inputNotActive" (updatedMatchEmitter)="updateMatchScore($event)"></app-match>
+    <app-match [match]="match" [seasonDetails]="seasonDetails" [round]="selectedRound" [inputNotActive]="inputNotActive" (updatedMatchEmitter)="updateMatchScore($event)"></app-match>
     <mat-divider></mat-divider>
   </div>
 </div>
