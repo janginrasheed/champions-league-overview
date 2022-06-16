@@ -1,7 +1,5 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
-import {GroupDetails} from "../../types/group-details";
-import {Match} from "../../types/match";
 import {ClubTable} from "../../types/club-table";
 import {MatSort} from "@angular/material/sort";
 

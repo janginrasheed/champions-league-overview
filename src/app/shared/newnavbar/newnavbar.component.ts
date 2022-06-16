@@ -1,10 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {NavigationPath} from "../enums/navigation-path.enum";
-import {Season} from "../../types/season";
-import {INavigationParameter, NavigationUtils} from "../utils/navigation-utils";
-import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
-import {DataService} from "../../services/data.service";
-import {filter, map} from "rxjs/operators";
+import {Router} from "@angular/router";
 import {ParamsService} from "../../services/params.service";
 
 @Component({

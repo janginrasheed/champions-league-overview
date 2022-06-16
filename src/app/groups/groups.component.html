@@ -1,8 +1,0 @@
-<div class="groups--container" *ngIf="!isLoading">
-  <div *ngIf="errorText?.length > 0; else seasonGroupList">{{errorText}}</div>
-  <ng-template #seasonGroupList>
-    <div *ngFor="let clubData of clubsGroupsData; let i = index">
-      <app-group-table [clubsData]="clubData" [groupName]="groupName[i]"></app-group-table>
-    </div>
-  </ng-template>
-</div>
