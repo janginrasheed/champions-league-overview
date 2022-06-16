@@ -1,13 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
-import {ParamsService} from "../../services/params.service";
+import {ParamsService} from "../services/params.service";
 
 @Component({
-  selector: 'app-newnavbar',
-  templateUrl: './newnavbar.component.html',
-  styleUrls: ['./newnavbar.component.scss']
+  selector: 'app-navbar',
+  templateUrl: './navbar.component.html',
+  styleUrls: ['./navbar.component.scss']
 })
-export class NewnavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit {
 
   selectedSeasonName: String;
 

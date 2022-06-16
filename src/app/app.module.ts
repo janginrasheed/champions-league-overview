@@ -23,7 +23,7 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {MatDividerModule} from "@angular/material/divider";
 import {ConfigComponent} from './config/config.component';
 import {AboutComponent} from './about/about.component';
-import {NewnavbarComponent} from './shared/newnavbar/newnavbar.component';
+import {NavbarComponent} from './navbar/navbar.component';
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 
 @NgModule({
@@ -34,7 +34,7 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
     MatchComponent,
     ConfigComponent,
     AboutComponent,
-    NewnavbarComponent
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
