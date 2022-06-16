@@ -18,7 +18,7 @@ import {Round} from "../types/round";
 export class HomeComponent implements OnInit {
 
   seasons: Season[];
-  seasonDetails: SeasonDetails[];
+  seasonDetails: SeasonDetails;
   seasonMatches: Match[];
   rounds: Round[];
   roundMatches: Match[] = [];
@@ -134,7 +134,7 @@ export class HomeComponent implements OnInit {
 
   fillClubsData(): void {
     if (!this.isLoading) {
-      this.seasonDetails[0].seasonGroups.forEach((group, i) => {
+      this.seasonDetails.seasonGroups.forEach((group, i) => {
         this.groupsNames[i] = group.groupName;
         group.groupClubs.forEach((club, j) => {
           this.clubsGroupsData[i][j].clubId = club.clubId;
@@ -217,7 +217,8 @@ export class HomeComponent implements OnInit {
       this.rounds = result[3];
       this.selectedRoundId = 1; //TODO
       this.isLoading = false;
-      if (!this.seasonDetails[0]) {
+      this.fillClubsData();
+      if (!this.seasonDetails) {
         this.getCurrentSeason();
         this.fillClubsData();
       }

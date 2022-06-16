@@ -15,7 +15,7 @@ export class GroupTableComponent implements OnInit {
   sort: MatSort;
   dataSource: MatTableDataSource<any>;
   displayedColumns: string[] = ['clubLogo', 'clubName', 'played', 'won', 'drawn', 'lost', 'goalsFor', 'goalsAgainst', 'goalDifference', 'points'];
-  displayedColumnsText: string[] = ['', '', 'Sp.', 'S', 'U', 'N', 'T', 'GT', 'TD', 'P'];
+  displayedColumnsText: string[] = ['', 'Verein', 'Sp.', 'S', 'U', 'N', 'T', 'GT', 'TD', 'P'];
 
   @Input()
   clubsData: ClubTable[];

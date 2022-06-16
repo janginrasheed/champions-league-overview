@@ -3,7 +3,7 @@
   {{errorText}}
 </div>
 <ng-template #home>
-    <div class="select-season" *ngIf="seasonDetails[0]">
+    <div class="select-season" *ngIf="seasonDetails">
       <mat-form-field appearance="fill">
         <mat-label>Saison auswählen</mat-label>
         <mat-select [(value)]="selectedSeasonName">
@@ -28,7 +28,7 @@
             <span class="material-icons">close</span>
             None
           </button>
-          <ng-container *ngFor="let group of seasonDetails[0].seasonGroups">
+          <ng-container *ngFor="let group of seasonDetails.seasonGroups">
             <button mat-menu-item *ngFor="let club of group.groupClubs"
                     (click)="clubSelected(club, group.groupName)"
                     class="club-logo-name">
@@ -47,7 +47,7 @@
         <img src="{{selectedClub?.clubLogo}}" class="club-logo-large" alt="Club Logo">
         <div>
           <div class="club-matches-container" *ngFor="let match of clubMatches">
-            <app-match [match]="match" [seasonDetails]="seasonDetails[0]" [inputNotActive]="inputNotActive"
+            <app-match [match]="match" [seasonDetails]="seasonDetails" [inputNotActive]="inputNotActive"
                        (updatedMatchEmitter)="updateMatchScore($event)"></app-match>
             <mat-divider></mat-divider>
           </div>
@@ -75,7 +75,7 @@
         </div>
         <div class="matches" *ngIf="roundMatches">
           <div class="matches--container" *ngFor="let match of roundMatches">
-            <app-match [match]="match" [seasonDetails]="seasonDetails[0]"
+            <app-match [match]="match" [seasonDetails]="seasonDetails"
                        [inputNotActive]="inputNotActive" (updatedMatchEmitter)="updateMatchScore($event)"></app-match>
             <mat-divider></mat-divider>
           </div>

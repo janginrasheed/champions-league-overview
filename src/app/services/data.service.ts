@@ -32,18 +32,16 @@ export class DataService {
     );
   }
 
-  public getSeasonDetails(selectedSeasonName: String): Observable<SeasonDetails[]> {
-    return this.http.get<SeasonDetails[]>(`http://localhost:8081/service/rest/seasondetails/${selectedSeasonName}`).pipe(
+  public getSeasonDetails(selectedSeasonName: String): Observable<SeasonDetails> {
+    return this.http.get<SeasonDetails>(`http://localhost:8081/service/rest/seasondetails/${selectedSeasonName}`).pipe(
       first(), switchMap(data => {
-        data.forEach(seasonDetail => {
-          seasonDetail.seasonGroups.sort((a, b) => a.groupName.localeCompare(b.groupName));
-        });
+        data.seasonGroups.sort((a, b) => a.groupName.localeCompare(b.groupName));
         return of(data);
       }),
       retry(1),
       catchError(error => {
         this.handleError(error);
-        console.error("Fehler beim Lader der Saisondaten");
+        console.error("Fehler beim Laden der Saisondaten");
         return throwError(error);
       })
     );
