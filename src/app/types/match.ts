@@ -4,6 +4,8 @@ export interface Match {
   awayClubId: number;
   homeClubGoals?: string;
   awayClubGoals?: string;
+  penaltyShootoutHome?: string;
+  penaltyShootoutAway?: string;
   roundId: number;
   seasonId: number;
   date?: Date;

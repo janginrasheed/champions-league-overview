@@ -10,8 +10,7 @@
           {
             "clubId": 1,
             "clubName": "AAA",
-            "clubLogo": "/",
-            "countryId": 1
+            "clubLogo": "/"
           }
         ]
       }

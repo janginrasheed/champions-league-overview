@@ -1,7 +1,6 @@
-import {Component, Input, OnInit, EventEmitter, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Match} from "../../types/match";
 import {SeasonDetails} from "../../types/season-details";
-import {FormControl, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-match',
