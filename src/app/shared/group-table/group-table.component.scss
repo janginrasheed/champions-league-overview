@@ -1,45 +1,38 @@
-.group-table-item {
-  margin: 1.5rem;
+.group-table {
+  margin: 1rem;
+
+  &__header {
+    color: #fff;
+    margin: 0 0 -2rem 2rem;
+    font-size: 1rem;
+  }
+
+  &__logo {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__club-name {
+    width: 8rem;
+  }
+
+  &__row__data {
+    width: 2rem;
+  }
+
 }
 
 table {
   border-top: 2rem var(--champions-league-color) solid;
-  width: 40rem;
+  width: 30rem;
 }
 
-th.mat-sort-header-sorted {
-  color: black;
-}
-
-.groups-group-table-header {
-  color: #fff;
-  margin: 0 0 -2rem 2rem;
-  font-size: 1rem;
-}
-
-.club-data {
-  display: flex;
-  align-items: center;
-}
-
-.table-club-avatar {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.table-row-data {
-  width: 2rem;
-}
-
-.table-row-club-name {
-  width: 8rem;
-}
-
+// Padding beim Logo weniger machen
 th.mat-header-cell:first-of-type, td.mat-cell:first-of-type, td.mat-footer-cell:first-of-type {
   padding-left: 0.8rem !important;
 }
 
+// Padding beim Punkte weniger machen
 th.mat-header-cell:last-of-type, td.mat-cell:last-of-type, td.mat-footer-cell:last-of-type {
   padding-right: 0 !important;
 }

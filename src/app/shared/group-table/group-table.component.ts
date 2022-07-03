@@ -28,10 +28,6 @@ export class GroupTableComponent implements OnInit {
     this.dataSource.sort = this.sort;
   }
 
-  ngAfterViewInit() {
-    this.dataSource.sort = this.sort;
-  }
-
   ngOnChanges() {
   }
 

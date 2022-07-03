@@ -106,7 +106,7 @@ export class HomeComponent implements OnInit {
       if (this.paramsService.selectedRoundId) {
         this.selectedRoundId = this.paramsService.selectedRoundId; //TODO
       } else {
-        this.selectedRoundId = 1;
+        this.selectedRoundId = 13;
       }
       if (!this.seasonDetails) {
         this.getCurrentSeason();
