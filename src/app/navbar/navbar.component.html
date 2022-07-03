@@ -1,25 +1,18 @@
-<div class="navbar--container">
-  <div class="navbar-left text--white">
-    <div class="navbar-left-brand" (click)="navigateTo('home')">
-      <img src="https://img.uefa.com/imgml/uefacom/ucl/logo.svg" class="navbar-left-logo" alt="">
-      <span class="navbar-left-title text--white">Champions League</span>
-    </div>
+<div class="navbar">
+  <div class="navbar__left" (click)="navigateTo('home')">
+    <img src="https://img.uefa.com/imgml/uefacom/ucl/logo.svg" class="navbar__left__logo" alt="">
+    <span class="navbar__left__title text--white">Champions League</span>
   </div>
-  <div class="navbar-right">
-<!--
-    <button mat-button class="navbar-button">
-      <span class="material-icons moon-icon">nightlight_round</span>
-    </button>
--->
-    <button mat-button class="navbar-button" (click)="navigateTo('home')">
+  <div class="navbar__right">
+    <button mat-button class="navbar__button" (click)="navigateTo('home')">
       <span class="material-icons">home</span>
       <span class="button-title">Home</span>
     </button>
-    <button mat-button class="navbar-button" (click)="navigateTo('config')">
+    <button mat-button class="navbar__button" (click)="navigateTo('config')">
       <span class="material-icons">settings</span>
       Config
     </button>
-    <button mat-button class="navbar-button" (click)="navigateTo('about')">
+    <button mat-button class="navbar__button" (click)="navigateTo('about')">
       <span class="material-icons">info</span>
       Über
     </button>
@@ -29,28 +22,23 @@
   <mat-expansion-panel hideToggle>
     <mat-expansion-panel-header>
       <mat-panel-title>
-        <div class="navbar-left-brand" (click)="navigateTo('home')">
-          <img src="https://img.uefa.com/imgml/uefacom/ucl/logo.svg" class="navbar-left-logo" alt="">
-          <span class="navbar-left-title text--white">Champions League</span>
+        <div class="navbar__left">
+          <img src="https://img.uefa.com/imgml/uefacom/ucl/logo.svg" class="navbar__left__logo" alt="">
+          <span class="navbar__left__title text--white">Champions League</span>
         </div>
-        <span class="material-icons text--white  ">menu</span>
+        <span class="material-icons text--white">menu</span>
       </mat-panel-title>
     </mat-expansion-panel-header>
-    <div class="navbar-right">
-<!--
-      <button mat-button class="navbar-button">
-        <span class="material-icons moon-icon">nightlight_round</span>
-      </button>
--->
-      <button mat-button class="navbar-button" (click)="navigateTo('home')">
+    <div class="expansion-panel__buttons">
+      <button mat-button class="navbar__button" (click)="navigateTo('home')">
         <span class="material-icons">home</span>
-        <span class="button-title">Home</span>
+        <span>Home</span>
       </button>
-      <button mat-button class="navbar-button" (click)="navigateTo('config')">
+      <button mat-button class="navbar__button" (click)="navigateTo('config')">
         <span class="material-icons">settings</span>
         Config
       </button>
-      <button mat-button class="navbar-button" (click)="navigateTo('about')">
+      <button mat-button class="navbar__button" (click)="navigateTo('about')">
         <span class="material-icons">info</span>
         Über
       </button>
