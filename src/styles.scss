@@ -9,13 +9,16 @@ body {
 
 :root {
   --champions-league-color: hsl(225, 94%, 20%);
+  --font--weight--light: 'Comfortaa', cursive;
+  --font--weight--bold: 'Teko', sans-serif;
 }
 
-.text-color-white {
+.text--white {
   color: #fff;
 }
 
-.club-logo-small {
+// In styles.css weil es wird global verwendet
+.club__logo--small {
   height: 1.8rem;
   margin-right: .3rem;
 }

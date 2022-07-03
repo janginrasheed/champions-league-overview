@@ -1,3 +1,4 @@
+//Header
 .select-season {
   display: flex;
   justify-content: center;
@@ -5,102 +6,78 @@
 }
 
 .select-club {
+  margin: 0 0 1rem 1rem;
+
+  &__button {
+    padding: 0.2rem 0;
+    min-width: 15rem;
+
+  }
+}
+
+.club__logo {
+  &__name {
+    display: flex;
+    align-items: center;
+  }
+
+  &__container {
+    display: flex;
+    justify-content: center;
+    width: 3rem;
+  }
+
+}
+
+//Ausgewählter Verein
+.selected-club {
+  &__info__container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__logo__name, &__matches__table {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  &__logo {
+    height: 13rem;
+  }
+
+  &__info__name {
+    font-family: var(--font--weight--light);
+    font-size: 3rem;
+    margin-left: 5rem;
+  }
+
+  &__matches__table {
+    align-items: flex-start;
+  }
+
+}
+
+// Matches - Groups Container
+.matches-groups__container {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+.matches-rounds__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin: 1rem;
 }
 
-.select-club-button {
-  padding: 0.2rem 0;
-  width: 15rem;
+.select-round__title {
+  margin: 0 1rem 0 0;
 }
 
-.club-logo-name {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-}
-
-.club-logo-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 3rem;
-}
-
-.club-info-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.club-info-name {
-  font-family: 'Comfortaa', cursive;
-  font-size: 3rem;
-}
-
-.club-logo-table-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  flex-wrap: wrap;
-  width: 100%;
-}
-
-.club-logo-large {
-  height: 13rem;
-}
-
-.club-matches-container {
-  margin-bottom: 1rem;
-}
-
-// **** Matches - Groups Container ******************** //
-.matches-groups-container {
-  display: flex;
-  justify-content: space-evenly;
-  flex-wrap: wrap;
-}
-
-// **** Matches Component ***************************** //
-.group-round--container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 1rem;
-}
-
-.select-round-combobox {
-  margin-left: 1rem;
-}
-
-.matches {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.matches--container {
-  margin-bottom: 1rem;
-  //border-radius: 1rem;
-  //width: 70rem;
-}
-
-::ng-deep .select-round-combobox .mat-form-field-wrapper .mat-form-field-underline {
-  //bottom: 0 !important;
-}
-
-::ng-deep .mat-form-field-wrapper {
-  //margin-bottom: 0;
-}
-
-.runde-title {
-  margin: 0;
-}
-
-//* Groups Component *****************************//
 .groups--container {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  flex-direction: column;
 }

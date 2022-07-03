@@ -1,90 +1,96 @@
 <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
-<div *ngIf="errorText?.length > 0; else home">
+<div *ngIf="errorText?.length > 0;">
   {{errorText}}
 </div>
-<ng-template #home>
-    <div class="select-season" *ngIf="seasonDetails">
-      <mat-form-field appearance="fill">
-        <mat-label>Saison auswählen</mat-label>
-        <mat-select [(value)]="selectedSeasonName">
-          <mat-option *ngFor="let season of seasons" [value]="season.season">
-            {{season.season}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <div class="select-club" *ngIf="!isLoading">
-      <button mat-raised-button [matMenuTriggerFor]="menu" color="primary" class="select-club-button">
-        <ng-container *ngIf="isClubSelected">
-          <img src="{{selectedClub.clubLogo}}" class="club-logo-small" alt="Club Logo">
-          <span>{{selectedClub.clubName}}</span>
-        </ng-container>
-        <span *ngIf="!isClubSelected">Verein auswählen</span>
-        <span class="material-icons">keyboard_arrow_down</span>
-      </button>
-      <mat-menu #menu="matMenu">
-        <ng-container>
-          <button mat-menu-item class="club-logo-name" (click)="clearSelectedClub()">
-            <span class="material-icons">close</span>
-            None
-          </button>
-          <ng-container *ngFor="let group of seasonDetails.seasonGroups">
-            <button mat-menu-item *ngFor="let club of group.groupClubs"
-                    (click)="clubSelected(club, group.groupName)"
-                    class="club-logo-name">
-          <span class="club-logo-container">
-          <img src="{{club.clubLogo}}" class="club-logo-small" alt="Club Logo">
+<div id="home" *ngIf="!isLoading && errorText?.length < 1">
+  <div class="select-season">
+    <mat-form-field appearance="fill">
+      <mat-label>Saison auswählen</mat-label>
+      <mat-select [(value)]="selectedSeasonName">
+        <mat-option *ngFor="let season of seasons" [value]="season.season">
+          {{season.season}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="select-club">
+    <button mat-raised-button [matMenuTriggerFor]="menu" color="primary" class="select-club__button">
+      <!-- Wenn ein Verein ausgewählt ist, zeige der Name und das Logo auf das Button -->
+      <ng-container *ngIf="isClubSelected">
+        <img src="{{selectedClub.clubLogo}}" class="club__logo--small" alt="Club Logo">
+        <span>{{selectedClub.clubName}}</span>
+      </ng-container>
+      <span *ngIf="!isClubSelected">Verein auswählen</span>
+      <span class="material-icons">keyboard_arrow_down</span>
+    </button>
+    <mat-menu #menu="matMenu">
+      <ng-container>
+        <button mat-menu-item class="club__logo__name" (click)="clearSelectedClub()">
+          <span class="material-icons">close</span>
+          <!-- kein? keiner? -->
+          Keiner
+        </button>
+        <ng-container *ngFor="let group of seasonDetails.seasonGroups">
+          <button mat-menu-item *ngFor="let club of group.groupClubs"
+                  (click)="clubSelected(club, group.groupName)"
+                  class="club__logo__name">
+          <span class="club__logo__container">
+            <img src="{{club.clubLogo}}" class="club__logo--small" alt="Logo">
           </span>
-              {{club.clubName}}
-            </button>
-          </ng-container>
+            {{club.clubName}}
+          </button>
         </ng-container>
-      </mat-menu>
+      </ng-container>
+    </mat-menu>
+  </div>
+  <div class="selected-club__info__container" *ngIf="isClubSelected">
+    <div class="selected-club__logo__name">
+      <img src="{{selectedClub?.clubLogo}}" class="selected-club__logo" alt="Club Logo">
+      <h1 class="selected-club__info__name">{{selectedClub.clubName}}</h1>
     </div>
-    <div class="club-info-container" *ngIf="isClubSelected">
-      <h1 class="club-info-name">{{selectedClub?.clubName}}</h1>
-      <div class="club-logo-table-container">
-        <img src="{{selectedClub?.clubLogo}}" class="club-logo-large" alt="Club Logo">
-        <div>
-          <div class="club-matches-container" *ngFor="let match of clubMatches">
-            <app-match [match]="match" [seasonDetails]="seasonDetails" [inputNotActive]="inputNotActive"
-                       (updatedMatchEmitter)="updateMatchScore($event)"></app-match>
-            <mat-divider></mat-divider>
-          </div>
-        </div>
-        <app-group-table [groupName]="groupOfSelectedClub" [clubsData]="clubsData"></app-group-table>
-      </div>
-    </div>
-    <div class="matches-groups-container" *ngIf="!isLoading">
-      <div class="matches-container">
-        <div class="group-round--container">
-          <h1 class="runde-title">Runde: </h1>
-          <div class="select-round-combobox">
-            <mat-form-field appearance="fill">
-              <mat-label>Runde auswählen</mat-label>
-              <mat-select [(value)]="selectedRoundId">
-                <mat-option *ngFor="let round of rounds" [value]="round.roundId">
-                  <div>
-                    {{round.stage}} <span *ngIf="round.roundId < 7">{{round.round}}
-                    . Spieltag</span>{{round.homeAway | titlecase}}
-                  </div>
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-        </div>
-        <div class="matches" *ngIf="roundMatches">
-          <div class="matches--container" *ngFor="let match of roundMatches">
-            <app-match [match]="match" [seasonDetails]="seasonDetails"
-                       [inputNotActive]="inputNotActive" (updatedMatchEmitter)="updateMatchScore($event)"></app-match>
-            <mat-divider></mat-divider>
-          </div>
+    <div class="selected-club__matches__table">
+      <div>
+        <div *ngFor="let match of clubMatches">
+          <app-match [match]="match"
+                     [rounds]="rounds"
+                     [seasonDetails]="seasonDetails"
+                     [inputNotActive]="inputNotActive"
+                     (updatedMatchEmitter)="updateMatchScore($event)"></app-match>
+          <mat-divider></mat-divider>
         </div>
       </div>
-      <div class="groups-container" *ngIf="!isLoading">
-        <div *ngFor="let clubData of clubsGroupsData; let i = index">
-          <app-group-table [clubsData]="clubData" [groupName]="groupsNames[i]"></app-group-table>
-        </div>
+      <app-group-table [groupName]="groupOfSelectedClub" [clubsData]="clubsData"></app-group-table>
+    </div>
+  </div>
+  <div class="matches-groups__container">
+    <div>
+      <div class="matches-rounds__container">
+        <h1 class="select-round__title">Runde: </h1>
+        <mat-form-field appearance="fill">
+          <mat-label>Runde auswählen</mat-label>
+          <mat-select [(value)]="selectedRoundId">
+            <mat-option *ngFor="let round of rounds" [value]="round.roundId">
+              <div>
+                {{round.stage}} <span *ngIf="round.roundId < 7">{{round.round}}. Spieltag</span>
+                {{round.homeAway | titlecase}}
+              </div>
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div *ngFor="let match of roundMatches">
+        <app-match [match]="match"
+                   [seasonDetails]="seasonDetails"
+                   [inputNotActive]="inputNotActive"
+                   (updatedMatchEmitter)="updateMatchScore($event)">
+        </app-match>
+        <mat-divider></mat-divider>
       </div>
     </div>
-</ng-template>
+    <div class="groups--container">
+      <div *ngFor="let clubData of clubsGroupsData; let i = index">
+        <app-group-table [clubsData]="clubData" [groupName]="groupsNames[i]"></app-group-table>
+      </div>
+    </div>
+  </div>
+</div>

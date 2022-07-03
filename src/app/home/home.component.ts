@@ -25,6 +25,7 @@ export class HomeComponent implements OnInit {
   seasonName: String = this.activatedRoute.snapshot.params.selectedSeasonName;
   private _selectedSeasonName: String;
   private _selectedRoundId: number;
+  selectedRound: String;
   isClubSelected = false;
   selectedClub: Club = {clubId: 0, clubName: "", clubLogo: ""};
   groupOfSelectedClub: String;
@@ -105,7 +106,7 @@ export class HomeComponent implements OnInit {
       if (this.paramsService.selectedRoundId) {
         this.selectedRoundId = this.paramsService.selectedRoundId; //TODO
       } else {
-        this.selectedRoundId = 13;
+        this.selectedRoundId = 1;
       }
       if (!this.seasonDetails) {
         this.getCurrentSeason();
@@ -276,16 +277,39 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  /**
+   * @function updateMatchScore(updatedMatch: Match)
+   * @param updatedMatch
+   * Schickt das neue Spielergebnis dann wird die Seite aktualisiert
+   */
   public updateMatchScore(updatedMatch: Match): void {
     this.dataService.updateMatchByMatchId(updatedMatch).subscribe();
-    this.navigateTo(); //TODO - Reload Match & Group
+    //TODO - Reload Match & Group
+    this.navigateTo();
   }
 
+  /**
+   * @function navigateTo()
+   * aktualisiert die Seite
+   */
   public navigateTo() {
     this.router.navigate(['/']);
   }
 
+  /**
+   * @function clubSelected(selectedClub, groupName)
+   * @param selectedClub
+   * @param groupName
+   * holt die Daten von dem ausgewählten Verein
+   */
   public clubSelected(selectedClub: Club, groupName: String) {
+    /*
+        this.rounds.forEach(round => {
+          if (round.roundId == this.selectedRoundId) {
+            this.selectedRound = round.stage + round.homeAway;
+          }
+        });
+    */
 
     this.clubMatches = [];
     this.selectedClub = selectedClub;
@@ -304,9 +328,14 @@ export class HomeComponent implements OnInit {
         }
       });
     });
+
     this.isClubSelected = true;
   }
 
+  /**
+   * @function clearSelectedClub()
+   * Ausgewählter Verein löschen
+   */
   public clearSelectedClub() {
     this.selectedClub = {clubId: 0, clubName: "", clubLogo: ""};
     this.isClubSelected = false;

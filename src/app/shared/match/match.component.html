@@ -1,51 +1,41 @@
-<div class="match-details--container">
-  <div class="group-date">
-    <div class="round">
+<div class="match__container">
+  <div>
+    <div *ngIf="!matchDetails.round.includes('Gruppenphase')">
       {{matchDetails.round}}
     </div>
-    <div class="group">
+    <div *ngIf="matchDetails.round.includes('Gruppenphase')">
       Gruppe: {{matchDetails.group}}
     </div>
-    <div class="match-date match-info-text">
-      {{matchDetails.matchDate | date: "dd.MM.yyyy"}}
-    </div>
+    {{matchDetails.matchDate | date: "dd.MM.yyyy"}}
   </div>
-  <div class="home-club-name">
-    {{matchDetails.homeClub.name}}
-  </div>
-  <div class="club-logo">
-    <img src="{{matchDetails.homeClub.logo}}" alt="" class="club-logo-small">
-  </div>
-  <form class="example-form">
-    <mat-form-field class="example-full-width">
+  {{matchDetails.homeClub.name}}
+  <img src="{{matchDetails.homeClub.logo}}" alt="" class="club__logo--small">
+  <form>
+    <mat-form-field class="match-score__input">
       <input matInput min="0" max="99" pattern="([0-9]{2})" [(ngModel)]="matchDetails.homeClub.goals"
              [ngModelOptions]="{standalone: true}"
              [disabled]="inputNotActive"
-             class="input-text">
+             class="match-score__input__text">
     </mat-form-field>
   </form>
-  <div class="center match-info-text">
-    :
-  </div>
-  <form class="example-form">
-    <mat-form-field class="example-full-width">
+  :
+  <form>
+    <mat-form-field class="match-score__input">
       <input matInput min="0" max="99" pattern="([0-9]{2})"
              [(ngModel)]="matchDetails.awayClub.goals"
              [ngModelOptions]="{standalone: true}"
              [disabled]="inputNotActive"
-             class="input-text">
+             class="match-score__input__text">
     </mat-form-field>
   </form>
-  <div class="club-logo">
-    <img src="{{matchDetails.awayClub.logo}}" alt="" class="club-logo-small">
-  </div>
-  <div class="away-club-name">
-    {{matchDetails.awayClub.name}}
-  </div>
-  <div class="update-score-buttons">
-    <button mat-stroked-button color="primary" class="update-score-button" (click)="editClicked()"
-            [disabled]="!inputNotActive"><span class="material-icons">edit</span></button>
-    <button mat-stroked-button color="primary" class="update-score-button" (click)="saveClicked()"
-            [disabled]="inputNotActive"><span class="material-icons">save</span></button>
+  <img src="{{matchDetails.awayClub.logo}}" alt="" class="club__logo--small">
+  {{matchDetails.awayClub.name}}
+  <div>
+    <button mat-stroked-button color="primary" class="match-details__buttons" (click)="editClicked()"
+            [disabled]="!inputNotActive">
+      <span class="material-icons">edit</span></button>
+    <button mat-stroked-button color="primary" class="match-details__buttons" (click)="saveClicked()"
+            [disabled]="inputNotActive">
+      <span class="material-icons">save</span></button>
   </div>
 </div>

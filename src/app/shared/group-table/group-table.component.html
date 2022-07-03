@@ -6,7 +6,7 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header>{{displayedColumnsText[i]}}</th>
         <td mat-cell *matCellDef="let club">
           <div class="table-club-avatar" *ngIf="displayedColumn == 'clubLogo'">
-            <img src="{{club.clubLogo}}" alt="" class="club-logo-small">
+            <img src="{{club.clubLogo}}" alt="" class="club__logo--small">
           </div>
           <div class="table-row-club-name" *ngIf="displayedColumn == 'clubName'">
             {{club.clubName}}

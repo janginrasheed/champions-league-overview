@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Match} from "../../types/match";
 import {SeasonDetails} from "../../types/season-details";
+import {Round} from "../../types/round";
 
 @Component({
   selector: 'app-match',
@@ -21,6 +22,9 @@ export class MatchComponent implements OnInit {
   @Input()
   seasonDetails: SeasonDetails;
 
+  @Input()
+  rounds: Round[];
+
   matchDetails: any = {
     homeClub: {
       name: null,
@@ -35,7 +39,7 @@ export class MatchComponent implements OnInit {
       logo: null
     },
     matchDate: null,
-    round: null,
+    round: "",
     group: null
   };
 
@@ -59,6 +63,7 @@ export class MatchComponent implements OnInit {
 
         });
       });
+
       this.seasonDetails.seasonGroups.forEach(group => {
         group.groupClubs.forEach(club => {
           if (club.clubName == this.matchDetails.homeClub.name || club.clubName == this.matchDetails.awayClub.name) {
@@ -70,15 +75,37 @@ export class MatchComponent implements OnInit {
 
     this.matchDetails.homeClub.goals = this.match.homeClubGoals;
     this.matchDetails.awayClub.goals = this.match.awayClubGoals;
-    // this.matchDetails.round = this.round;
+
+    if (this.match.roundId < 7) {
+      this.matchDetails.round = "Gruppenphase";
+    }
+
+    if (this.rounds) {
+      this.rounds.forEach(round => {
+        if (this.match.roundId == round.roundId) {
+          this.matchDetails.round = round.stage + " " + round.homeAway;
+        }
+      });
+    }
+
     this.matchDetails.matchDate = this.match.date;
+
   }
 
-
+  /**
+   * @function editClicked()
+   * Aktiviert die Inputs.
+   */
   public editClicked(): void {
     this.inputNotActive = false;
   }
 
+  /**
+   * @function saveClicked()
+   * * Prüft, ob das eingegebene Ergebnis valid ist.
+   * * Deaktiviert die Inputs
+   * * Schickt das neue Spielergebnis nach Parent-Komponent.
+   */
   public saveClicked(): void {
     this.match.homeClubGoals = this.matchDetails.homeClub.goals;
     this.match.awayClubGoals = this.matchDetails.awayClub.goals;

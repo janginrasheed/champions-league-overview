@@ -1,48 +1,30 @@
-.match-details--container {
+.match__container {
   display: grid;
   grid-template-columns: 5rem 10rem 5rem 3rem 1rem 3rem 5rem 10rem 5rem;
   justify-content: center;
+  justify-items: center;
   align-items: center;
   width: 50rem;
-  margin: 0.7rem auto;
   font-size: 1.2rem;
-  font-family: 'Teko', sans-serif;
-  justify-items: center;
+  font-family: var(--font--weight--bold);
 }
 
-.club-logo-small {
+.club__logo--small {
   height: 2.5rem;
   margin: 0 .5rem;
 }
 
-.center {
-  display: flex;
-  justify-content: center;
-}
-
-.example-full-width {
+.match-score__input {
   width: 3rem;
-  margin: 0 1rem;
+
+  &__text {
+    text-align: center;
+    color: black;
+    font-family: var(--font--weight--light);
+  }
 }
 
-.input-text {
-  text-align: center;
-  color: black;
-  font-family: 'Teko', sans-serif;
-  font-size: 1.7rem;
-}
-
-.home-club-name {
-  display: flex;
-  justify-content: flex-end;
-}
-
-.club-logo {
-  display: flex;
-  justify-content: center;
-}
-
-.update-score-button {
+.match-details__buttons {
   margin: 0 0.1rem;
   min-width: 1rem !important;
   padding: 0.2rem !important;
