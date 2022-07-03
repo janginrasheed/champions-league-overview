@@ -13,14 +13,22 @@ import {Round} from "../types/round";
 })
 export class DataService {
 
-  // private apiUrl = 'http://localhost:8081/service/rest/';
+  private _apiUrl = 'http://localhost:8081/service/rest/';
+
+  get apiUrl(): string {
+    return this._apiUrl;
+  }
+
+  set apiUrl(value: string) {
+    this._apiUrl = value;
+  }
 
   constructor(private http: HttpClient,
               private snackBar: MatSnackBar) {
   }
 
   public getSeasons(): Observable<Season[]> {
-    return this.http.get<Season[]>(`http://localhost:8081/service/rest/seasons`).pipe(
+    return this.http.get<Season[]>(this.apiUrl + "seasons").pipe(
       first(),
       retry(1),
       catchError(error => {
@@ -33,7 +41,7 @@ export class DataService {
   }
 
   public getSeasonDetails(selectedSeasonName: String): Observable<SeasonDetails> {
-    return this.http.get<SeasonDetails>(`http://localhost:8081/service/rest/seasondetails/${selectedSeasonName}`).pipe(
+    return this.http.get<SeasonDetails>(this.apiUrl + `seasondetails/${selectedSeasonName}`).pipe(
       first(), switchMap(data => {
         data.seasonGroups.sort((a, b) => a.groupName.localeCompare(b.groupName));
         return of(data);
@@ -47,20 +55,8 @@ export class DataService {
     );
   }
 
-  public insertSeason(data: Season) {
-    return this.http.post<Season>("http://localhost:8081/service/rest/seasons", data).pipe(
-      first(),
-      retry(1),
-      catchError(error => {
-        this.handleError(error);
-        console.error("Fehler beim Hinzufügen der Saison");
-        return throwError(error);
-      })
-    );
-  }
-
   public getAllRounds(): Observable<Round[]> {
-    return this.http.get<Round[]>(`http://localhost:8081/service/rest/rounds`).pipe(
+    return this.http.get<Round[]>(this.apiUrl + "rounds").pipe(
       first(),
       retry(1),
       catchError(error => {
@@ -72,7 +68,7 @@ export class DataService {
   }
 
   public getSeasonMatches(selectedSeasonName: String): Observable<Match[]> {
-    return this.http.get<Match[]>(`http://localhost:8081/service/rest/matches/${selectedSeasonName}`).pipe(
+    return this.http.get<Match[]>(this.apiUrl + `matches/${selectedSeasonName}`).pipe(
       first(),
       retry(1),
       catchError(error => {
@@ -84,7 +80,7 @@ export class DataService {
   }
 
   public updateMatchByMatchId(updatedMatch: Match): Observable<Match> {
-    return this.http.put<Match>(`http://localhost:8081/service/rest/matches/updatematch/${updatedMatch.matchId}`, updatedMatch).pipe(
+    return this.http.put<Match>(this.apiUrl + `matches/updatematch/${updatedMatch.matchId}`, updatedMatch).pipe(
       first(),
       retry(1),
       catchError(error => {
@@ -96,7 +92,7 @@ export class DataService {
   }
 
   public deleteMatchResult(matchId: number): Observable<Match> {
-    return this.http.put<Match>(`http://localhost:8081/service/rest/matches/deletematchresult/${matchId}`, matchId).pipe(
+    return this.http.put<Match>(this.apiUrl + `matches/deletematchresult/${matchId}`, matchId).pipe(
       first(),
       retry(1),
       catchError(error => {
@@ -121,26 +117,3 @@ export class DataService {
   }
 
 }
-
-/* TO DELETE
-public getSeasonDetails2(selectedSeasonId: number): Observable<SeasonDetails[]> {
-  return this.http.get<SeasonDetails[]>(`http://localhost:8081/service/rest/seasondetails2/${selectedSeasonId}`).pipe(
-    first(), switchMap(data => {
-      data.forEach(seasonDetail => {
-        seasonDetail.seasonGroups.sort((a, b) => a.groupName.localeCompare(b.groupName));
-      });
-      return of(data);
-    }), catchError(error => {
-      this.snackBar.open("Fehler beim Lader der Saisondaten", "ok", {duration: 30000});
-      console.error("Fehler beim Lader der Saisondaten");
-      return throwError(error);
-    })
-  );
-}
-
-public getSeasonMatches2(selectedSeasonId: number): Observable<Match[]> {
-  return this.http.get<Match[]>(`http://localhost:8081/service/rest/matches/${selectedSeasonId}`).pipe(
-    first()
-  );
-}
-*/
