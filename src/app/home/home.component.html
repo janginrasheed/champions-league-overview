@@ -89,7 +89,9 @@
     </div>
     <div class="groups--container">
       <div *ngFor="let clubData of clubsGroupsData; let i = index">
-        <app-group-table [clubsData]="clubData" [groupName]="groupsNames[i]"></app-group-table>
+        <app-group-table [clubsData]="clubData"
+                         [groupName]="groupsNames[i]">
+        </app-group-table>
       </div>
     </div>
   </div>

@@ -1,7 +1,6 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import {ClubTable} from "../../types/club-table";
-import {MatSort} from "@angular/material/sort";
 
 @Component({
   selector: 'app-group-table',
@@ -9,26 +8,30 @@ import {MatSort} from "@angular/material/sort";
   styleUrls: ['./group-table.component.scss']
 })
 export class GroupTableComponent implements OnInit {
-  @ViewChild(MatSort)
-  sort: MatSort;
+
   dataSource: MatTableDataSource<any>;
   displayedColumns: string[] = ['clubLogo', 'clubName', 'played', 'won', 'drawn', 'lost', 'goalsFor', 'goalsAgainst', 'goalDifference', 'points'];
   displayedColumnsText: string[] = ['', 'Verein', 'Sp.', 'S', 'U', 'N', 'T', 'GT', 'TD', 'P'];
 
   @Input()
-  clubsData: ClubTable[];
-
-  @Input()
   groupName: string;
 
-  constructor() {}
+  private _clubsData: ClubTable[];
 
-  ngOnInit(): void {
-    this.dataSource = new MatTableDataSource(this.clubsData);
-    this.dataSource.sort = this.sort;
+  get clubsData(): ClubTable[] {
+    return this._clubsData;
   }
 
-  ngOnChanges() {
+  @Input()
+  set clubsData(value: ClubTable[]) {
+    this._clubsData = value;
+  }
+
+  constructor() {
+  }
+
+  ngOnInit(): void {
+    this.dataSource = new MatTableDataSource(this._clubsData);
   }
 
 }

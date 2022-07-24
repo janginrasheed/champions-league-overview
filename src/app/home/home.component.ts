@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {DataService} from '../services/data.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {SeasonDetails} from "../types/season-details";
@@ -30,12 +30,21 @@ export class HomeComponent implements OnInit {
   selectedClub: Club = {clubId: 0, clubName: "", clubLogo: ""};
   groupOfSelectedClub: String;
   clubMatches: Match[] = [];
-  clubsData = new Array<ClubTable>(3)
+  clubsData = new Array<ClubTable>(3) // Warum 3? TODO
   clubsGroupsData: ClubTable[][] = [[], [], [], [], [], [], [], []];
   groupsNames: string[] = [];
   inputNotActive = true;
   isLoading = true;
   errorText: string = '';
+  dummyClubData: ClubTable;
+  breakEqualPoints: {
+    firstClubId: number,
+    secondClubId: number,
+    firstClubPoints: number,
+    secondClubPoints: number,
+    firstClubGoals: number,
+    secondClubGoals: number
+  }
 
   get selectedSeasonName(): String {
     return this._selectedSeasonName;
@@ -43,6 +52,7 @@ export class HomeComponent implements OnInit {
 
   set selectedSeasonName(value: String) {
     this._selectedSeasonName = value;
+    this.paramsService.selectedSeasonName = value;
     this.changeUrl(); // Damit Saisonname im URL steht
     this.getData(); // Nach Saison-Änderung, die Daten neu laden
     this.clearSelectedClub(); // Nach Saison-Änderung, die Daten vom ausgewählten Verein löschen
@@ -60,7 +70,6 @@ export class HomeComponent implements OnInit {
 
   constructor(private dataService: DataService,
               private paramsService: ParamsService,
-              private changeDetectorRef: ChangeDetectorRef,
               private activatedRoute: ActivatedRoute,
               private router: Router) {
   }
@@ -104,7 +113,7 @@ export class HomeComponent implements OnInit {
       this.initializeClubsGroupsData();
       this.fillClubsData();
       if (this.paramsService.selectedRoundId) {
-        this.selectedRoundId = this.paramsService.selectedRoundId; //TODO
+        this.selectedRoundId = this.paramsService.selectedRoundId;
       } else {
         this.selectedRoundId = 13;
       }
@@ -221,6 +230,7 @@ export class HomeComponent implements OnInit {
         }
       });
     }
+    this.sortTable();
     console.log(this.clubsGroupsData);
   }
 
@@ -303,14 +313,6 @@ export class HomeComponent implements OnInit {
    * holt die Daten von dem ausgewählten Verein
    */
   public clubSelected(selectedClub: Club, groupName: String) {
-    /*
-        this.rounds.forEach(round => {
-          if (round.roundId == this.selectedRoundId) {
-            this.selectedRound = round.stage + round.homeAway;
-          }
-        });
-    */
-
     this.clubMatches = [];
     this.selectedClub = selectedClub;
     this.groupOfSelectedClub = groupName;
@@ -339,6 +341,74 @@ export class HomeComponent implements OnInit {
   public clearSelectedClub() {
     this.selectedClub = {clubId: 0, clubName: "", clubLogo: ""};
     this.isClubSelected = false;
+  }
+
+  /**
+   * higher number of points obtained in the group matches played among the teams in question;
+
+   * superior goal difference from the group matches played among the teams in question;
+
+   * higher number of goals scored in the group matches played among the teams in question;
+
+   * if, after having applied criteria a) to c), teams still have an equal ranking,
+   criteria a) to c) are reapplied exclusively to the matches between the remaining teams to
+   determine their final rankings. If this procedure does not lead to a decision,
+   criteria e) to k) apply in the order given to the two or more teams still equal;
+   */
+  sortTable(): void {
+    this.clubsGroupsData.forEach(clubsData => {
+      //Nach Punkte sortieren
+      clubsData.sort(function (a, b) {
+        let keyA = a.points, keyB = b.points;
+        if (keyA > keyB) return -1;
+        if (keyA < keyB) return 1;
+        return 0;
+      });
+/*
+      this.seasonMatches.forEach(match => {
+        if (match.roundId < 7) {
+          if (match.homeClubId == this.breakEqualPoints.firstClubId
+            && match.awayClubId == this.breakEqualPoints.secondClubId) {
+            this.breakEqualPoints.firstClubGoals += +match.homeClubGoals;
+            this.breakEqualPoints.secondClubGoals += +match.awayClubGoals;
+            if (match.homeClubGoals > match.awayClubGoals) {
+              this.breakEqualPoints.firstClubPoints += 3;
+            } else if (match.homeClubGoals < match.awayClubGoals) {
+              this.breakEqualPoints.secondClubPoints += 3;
+            }
+          } else if (match.awayClubId == this.breakEqualPoints.firstClubId
+            && match.homeClubId == this.breakEqualPoints.secondClubId) {
+            this.breakEqualPoints.firstClubGoals += +match.awayClubGoals;
+            this.breakEqualPoints.secondClubGoals += +match.homeClubGoals;
+            if (match.homeClubGoals > match.awayClubGoals) {
+              this.breakEqualPoints.secondClubPoints += 3;
+            } else if (match.homeClubGoals < match.awayClubGoals) {
+              this.breakEqualPoints.firstClubPoints += 3;
+            }
+          }
+        }
+      });
+*/
+      // TODO - vorher diesen Sort zwischen Vereine in den direkten Spiele gegeneinander
+      //Nach Tordifferenz sortieren
+      for (let i = 0; i < clubsData.length - 1; i++) {
+        if (clubsData[i].points == clubsData[i + 1].points) {
+          if (clubsData[i].goalDifference < clubsData[i + 1].goalDifference) {
+            this.dummyClubData = clubsData[i];
+            clubsData[i] = clubsData[i + 1];
+            clubsData[i + 1] = this.dummyClubData;
+          } else if (clubsData[i].goalDifference == clubsData[i + 1].goalDifference) {
+            //Nach Tore sortieren
+            if (clubsData[i].goalsFor < clubsData[i + 1].goalsFor) {
+              this.dummyClubData = clubsData[i];
+              clubsData[i] = clubsData[i + 1];
+              clubsData[i + 1] = this.dummyClubData;
+            }
+          }
+        }
+      }
+    });
+
   }
 
 }

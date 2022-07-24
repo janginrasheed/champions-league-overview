@@ -1,9 +1,9 @@
 <div class="group-table">
   <h1 class="group-table__header">Gruppe: {{groupName}}</h1>
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort matSortActive="points" matSortDirection="desc">
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
     <ng-container *ngFor="let displayedColumn of displayedColumns; let i = index">
       <ng-container matColumnDef="{{displayedColumn}}">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{displayedColumnsText[i]}}</th>
+        <th mat-header-cell *matHeaderCellDef>{{displayedColumnsText[i]}}</th>
         <td mat-cell *matCellDef="let club">
           <div class="group-table__logo" *ngIf="displayedColumn == 'clubLogo'">
             <img src="{{club.clubLogo}}" alt="" class="club__logo--small">
